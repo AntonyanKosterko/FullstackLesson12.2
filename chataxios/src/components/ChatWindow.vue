@@ -42,16 +42,26 @@ export default {
       this.axios.get('https://61bcd385d8542f0017824a2a.mockapi.io/messages')
         .then((response) => {
           this.listMessages = response['data'];
+          
           //console.log(this.listMessages['0']['author']);
         })
     },
 
     sendMessage(){
       this.axios.post('https://61bcd385d8542f0017824a2a.mockapi.io/messages', this.form);
+      console.log(this.form.text);
       this.getMessage();
     },
+  },
+  mounted(){
+    this.getMessage();
+
+    setInterval(() => {
+      this.getMessage();
+    },1000 * 10);
+    }
   }
-}
+  
 </script>
 
 
