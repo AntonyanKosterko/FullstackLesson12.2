@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <slot>
-      <ChatMessage :username="name" :datetime="date">  </ChatMessage>
+      <ChatMessage></ChatMessage>
     </slot>
   </div>
     
