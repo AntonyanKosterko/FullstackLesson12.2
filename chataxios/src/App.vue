@@ -2,7 +2,6 @@
   <div id="app">
     <Container>
       <ChatWindow>
-        
       </ChatWindow>
     </Container>
   </div>
@@ -20,6 +19,10 @@ export default {
     Container,
     ChatWindow,
     //ChatMessage,
+  },
+  data(){
+    return {
+    }
   },
 }
 </script>

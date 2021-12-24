@@ -1,7 +1,7 @@
 <template>
     <div class="chat-message">
             <div class="info" username="{{username}}" datetime="{{datetime}}">{{username}} {{datetime}}</div>
-            Hello, World!!!
+            {{ mes }}
       </div>
 </template>
 
@@ -13,6 +13,7 @@ export default {
   props:{
     username: String,
     datetime: Date,
+    mes: String,
   },
   data(){
     

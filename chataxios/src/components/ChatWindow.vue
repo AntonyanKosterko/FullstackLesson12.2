@@ -2,15 +2,15 @@
     <div class="chat-window">
     <div class="chat-messages">
       <div class="scroll-wrapper">
-        <slot>
-            <ChatMessage :username="name" :datetime="date"></ChatMessage>
+        <slot v-for="(message) in listMessages">
+            <ChatMessage :username="message['author']" :datetime="message['datetime']" :mes="message['text']"></ChatMessage>
         </slot>
       </div>
     </div>
     <div class="chat-send-panel">
-      <input type="text" placeholder="Ваш никнейм..." class="chat-send-name-field" />
-      <input type="text" placeholder="Сообщение..." class="chat-send-message-field"/>
-      <button>
+      <input type="text" placeholder="Ваш никнейм..." class="chat-send-name-field" v-model="form.author"/>
+      <input type="text" placeholder="Сообщение..." class="chat-send-message-field" v-model="form.text"/>
+      <button @click="sendMessage()">
         <img src="/img/send.png" />
       </button>
     </div>
@@ -24,17 +24,32 @@ import ChatMessage from './ChatMessage.vue'
 export default {
   name: 'App',
   components: {
-      ChatMessage
-  },
-  props:{
-    username: String,
-    datetime: Date,
+      ChatMessage,
   },
   data(){
     return {
       name:'Anton',
       date:'24.12',
+      listMessages: this.getMessage(),
+      form: {
+        text: null,
+        author: null,
+      }
     }
+  },
+  methods:{
+    getMessage(){
+      this.axios.get('https://61bcd385d8542f0017824a2a.mockapi.io/messages')
+        .then((response) => {
+          this.listMessages = response['data'];
+          //console.log(this.listMessages['0']['author']);
+        })
+    },
+
+    sendMessage(){
+      this.axios.post('https://61bcd385d8542f0017824a2a.mockapi.io/messages', this.form);
+      this.getMessage();
+    },
   }
 }
 </script>
